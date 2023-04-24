@@ -48,7 +48,7 @@ async def rezult_podem(message: Message, state: FSMContext):
 # Хэндлер на отжимания
 @router.message(StateFilter(FSM.fill_otzhim), lambda x: x.text.isdigit() and int(x.text) >= 0)
 async def rezult_otzhim(message: Message, state: FSMContext):
-    if float(message.text) > 99:
+    if float(message.text) >= 75:
         await message.answer(text=f'{lex["rez"]}\n{lex["100_balls"]}')
     elif float(message.text) < 13:
         await message.answer(text=f'{lex["rez"]}\n{lex["0_balls"]}')

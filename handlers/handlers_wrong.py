@@ -15,9 +15,9 @@ async def incorrect_input(message: Message):
     await message.answer(text=f'{lex["wrong_input"]}')
 
 # Хэндлер на любое другое сообщение кроме нажатия кнопки выбора упражнения
-@router.message(StateFilter(FSM.fill_type, FSM.fill_age_1km, FSM.fill_age_1km))
+@router.message(StateFilter(FSM.fill_type, FSM.fill_age_1km, FSM.fill_age_3km))
 async def no_group_button_pressed(message: Message, state: FSMContext):
-    await message.answer(text='Пожалуйста, пользуйтесь кнопками при выборе упражнения')
+    await message.answer(text='Пользуйтесь кнопками при выборе упражнения')
     await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
     await state.set_state(FSM.fill_group)
 
