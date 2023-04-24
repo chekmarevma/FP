@@ -11,7 +11,7 @@ from lexicon import lex
 router: Router = Router()
 
 # Хэндлер на команду /start
-@router.message(Command(commands='start'), StateFilter(default_state))
+@router.message(Command(commands='start'))
 async def process_start_command(message: Message, state: FSMContext):
     await message.answer(text=f'Привет, {message.chat.username}!\n'
                               f'Выберите вид упражнения:', reply_markup=keyboard_type)
