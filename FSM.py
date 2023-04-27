@@ -2,8 +2,11 @@ from aiogram.filters.state import State, StatesGroup
 
 # Класс состояний
 class FSM(StatesGroup):
+    fill_mode = State()              # Выбор режима
     fill_group = State()             # Выбор типа упражнения
-    fill_type = State()              # Выбор Упражнения
+    fill_speed = State()             # Выбор упражнения на скорость
+    fill_strong = State()            # Выбор упражнения на силу
+    fill_endurance = State()         # Выбор упражнения на выносливость
     fill_100m = State()              # 100 м
     fill_60m = State()               # 60 м
     fill_10x10 = State()             # Челночный бег
@@ -17,5 +20,5 @@ class FSM(StatesGroup):
     fill_3km_before35 = State()
     fill_3km_after35 = State()
     fill_age_1km = State()
-    fill_age_3km = State()           # Псле 35
+    fill_age_3km = State()           # После 35
     # fill_500m_swim = State()       # Плавание 500 м

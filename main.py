@@ -10,7 +10,7 @@ async def main():
     env.read_env()
     token = env('BOT_TOKEN')
 
-    # Бот и диспетчер
+    # Создаем объекты бота и диспетчера
     storage: MemoryStorage = MemoryStorage()
     bot: Bot = Bot(token=token)
     dp: Dispatcher = Dispatcher(storage=storage)
@@ -24,4 +24,9 @@ async def main():
 
 if __name__ == '__main__':
     asyncio.run(main())
+
+
+
+
+
 

@@ -1,5 +1,13 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+# Клавиатура для выбора режимов работы
+simply_count: InlineKeyboardButton = InlineKeyboardButton(
+    text='Одиночные упражнения', callback_data='simply_count')
+# sum_count: InlineKeyboardButton = InlineKeyboardButton(
+#     text='Расчет суммы и оценки', callback_data='sum_count')
+keyboard_mode: InlineKeyboardMarkup = InlineKeyboardMarkup(
+    inline_keyboard=[[simply_count]])
+
 # Клавиатура для выбора типов упражнений
 speed_button: InlineKeyboardButton = InlineKeyboardButton(
     text='Скорость ⏱', callback_data='speed_button')
@@ -7,8 +15,10 @@ strong_button: InlineKeyboardButton = InlineKeyboardButton(
     text='Сила 💪', callback_data='strong_button')
 endurance_button: InlineKeyboardButton = InlineKeyboardButton(
     text='Выносливость 🏃 🏃‍', callback_data='endurance-button')
+choose_mode: InlineKeyboardButton = InlineKeyboardButton(
+    text='Выбор режима', callback_data='choose_mode')
 keyboard_type: InlineKeyboardMarkup = InlineKeyboardMarkup(
-    inline_keyboard=[[speed_button], [strong_button], [endurance_button]])
+    inline_keyboard=[[speed_button], [strong_button], [endurance_button], [choose_mode]])
 
 # Клавиатура для выбора упражнений на скорость
 button_100m: InlineKeyboardButton = InlineKeyboardButton(
