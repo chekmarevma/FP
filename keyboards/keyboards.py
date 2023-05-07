@@ -10,15 +10,19 @@ keyboard_mode: InlineKeyboardMarkup = InlineKeyboardMarkup(
 
 # Клавиатура для выбора типов упражнений
 speed_button: InlineKeyboardButton = InlineKeyboardButton(
-    text='Скорость ⏱', callback_data='speed_button')
+    text=f'Скорость\n ⏱', callback_data='speed_button')
 strong_button: InlineKeyboardButton = InlineKeyboardButton(
-    text='Сила 💪', callback_data='strong_button')
+    text='Сила\n💪', callback_data='strong_button')
 endurance_button: InlineKeyboardButton = InlineKeyboardButton(
-    text='Выносливость 🏃 🏃‍', callback_data='endurance-button')
+    text='Выносливость\n🏃 🏃‍', callback_data='endurance_button')
+VPN_button: InlineKeyboardButton = InlineKeyboardButton(
+    text='Военно-прикладной навык\n🪖', callback_data='VPN_button')
+agility_button: InlineKeyboardButton = InlineKeyboardButton(
+    text='Ловкость\n🤸‍♂️', callback_data='agility_button')
 choose_mode: InlineKeyboardButton = InlineKeyboardButton(
     text='Выбор режима', callback_data='choose_mode')
 keyboard_type: InlineKeyboardMarkup = InlineKeyboardMarkup(
-    inline_keyboard=[[speed_button], [strong_button], [endurance_button], [choose_mode]])
+    inline_keyboard=[[speed_button, strong_button], [endurance_button], [agility_button], [choose_mode]])
 
 # Клавиатура для выбора упражнений на скорость
 button_100m: InlineKeyboardButton = InlineKeyboardButton(
@@ -63,6 +67,30 @@ button_back: InlineKeyboardButton = InlineKeyboardButton(
     text='Назад', callback_data='button_back')
 keyboard_endurance: InlineKeyboardMarkup = InlineKeyboardMarkup(
     inline_keyboard=[[button_1km], [button_3km], [button_back]]) # [button_500m_swim]
+
+# Клавиатура для выбора упражнений на ловкость
+button_jump3: InlineKeyboardButton = InlineKeyboardButton(
+    text='Тройной прыжок с места', callback_data='button_jump3')
+button_brevno: InlineKeyboardButton = InlineKeyboardButton(
+    text='Передвижение по узкой опоре', callback_data='button_brevno')
+button_mark: InlineKeyboardButton = InlineKeyboardButton(
+    text='Ввод оценки за упражнение', callback_data='button_mark')
+button_back: InlineKeyboardButton = InlineKeyboardButton(
+    text='Назад', callback_data='button_back')
+keyboard_agility: InlineKeyboardMarkup = InlineKeyboardMarkup(
+    inline_keyboard=[[button_jump3], [button_brevno], [button_mark], [button_back]])
+
+# Клавиатура выбора оценки за упражнение
+button_2: InlineKeyboardButton = InlineKeyboardButton(
+    text='2', callback_data='mark_2')
+button_3: InlineKeyboardButton = InlineKeyboardButton(
+    text='3', callback_data='mark_3')
+button_4: InlineKeyboardButton = InlineKeyboardButton(
+    text='4', callback_data='mark_4')
+button_5: InlineKeyboardButton = InlineKeyboardButton(
+    text='5', callback_data='mark_5')
+keyboard_mark: InlineKeyboardMarkup = InlineKeyboardMarkup(
+    inline_keyboard=[[button_2, button_3, button_4, button_5], [button_back]])
 
 # Клавиатура для выбора возрастной группы
 button_before35: InlineKeyboardButton = InlineKeyboardButton(

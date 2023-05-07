@@ -36,9 +36,14 @@ async def choose_mode(callback: CallbackQuery, state: FSMContext):
 async def process_help_command(message: Message):
     await message.answer(text=lex['help'], parse_mode='MarkdownV2')
 
+# Хэндлер на команду /help
+@router.message(Command(commands='history'))
+async def process_help_command(message: Message):
+    await message.answer(text=lex['history'], parse_mode='MarkdownV2')
+
 # Хэндлер на кнопки выбора типа упражнения
-@router.callback_query(StateFilter(FSM.fill_group), Text(text=['speed_button', 'strong_button', 'endurance-button',
-                                                               'choose_mode']))
+@router.callback_query(StateFilter(FSM.fill_group), Text(text=['speed_button', 'strong_button', 'endurance_button',
+                                                               'agility_button', 'choose_mode']))
 async def group_button_pressed(callback: CallbackQuery, state: FSMContext):
     if callback.data == 'speed_button':
         await callback.message.edit_text(text=lex['choose_exersize'], reply_markup=keyboard_speed)
@@ -46,9 +51,12 @@ async def group_button_pressed(callback: CallbackQuery, state: FSMContext):
     elif callback.data == 'strong_button':
         await callback.message.edit_text(text=lex['choose_exersize'], reply_markup=keyboard_strong)
         await state.set_state(FSM.fill_strong)
-    elif callback.data == 'endurance-button':
+    elif callback.data == 'endurance_button':
         await callback.message.edit_text(text=lex['choose_exersize'], reply_markup=keyboard_endurance)
         await state.set_state(FSM.fill_endurance)
+    elif callback.data == 'agility_button':
+        await callback.message.edit_text(text=lex['choose_exersize'], reply_markup=keyboard_agility)
+        await state.set_state(FSM.fill_agility)
     elif callback.data == 'choose_mode':
         await callback.message.edit_text(text=lex['choose_mode'], reply_markup=keyboard_mode)
         await state.set_state(FSM.fill_mode)
@@ -98,6 +106,22 @@ async def endurance_button_pressed(callback: CallbackQuery, state: FSMContext):
         await callback.message.edit_text(text=lex['choose_type'], reply_markup=keyboard_type)
         await state.set_state(FSM.fill_group)
 
+# Хэндлер на выбор упражнений на ловкость
+@router.callback_query(StateFilter(FSM.fill_agility), Text(text=['button_jump3', 'button_brevno', 'button_mark']))
+async def endurance_button_pressed(callback: CallbackQuery, state: FSMContext):
+    if callback.data == 'button_jump3':
+        await callback.message.edit_text(text=f'{lex["input_jump3"]}')
+        await state.set_state(FSM.fill_jump3)
+    elif callback.data == 'button_brevno':
+        await callback.message.edit_text(text=f'{lex["input_brevno"]}')
+        await state.set_state(FSM.fill_brevno)
+    elif callback.data == 'button_mark':
+        await callback.message.edit_text(text=lex['input_mark'], reply_markup=keyboard_mark)
+        await state.set_state(FSM.fill_mark)
+    elif callback.data == 'button_back':
+        await callback.message.edit_text(text=lex['choose_type'], reply_markup=keyboard_type)
+        await state.set_state(FSM.fill_group)
+
 # Хэндлер на выбор возраста на 1 км
 @router.callback_query(StateFilter(FSM.fill_age_1km), Text(text=['button_before35', 'button_after35', 'button_back']))
 async def age_button_pressed_1km(callback: CallbackQuery, state: FSMContext):
@@ -125,7 +149,8 @@ async def age_button_pressed_3km(callback: CallbackQuery, state: FSMContext):
         await state.set_state(FSM.fill_endurance)
 
 # Хэндлер на кнопку назад из режима выбора упражнений
-@router.callback_query(StateFilter(FSM.fill_speed, FSM.fill_strong, FSM.fill_endurance), Text(text=['button_back']))
+@router.callback_query(StateFilter(FSM.fill_speed, FSM.fill_strong, FSM.fill_endurance, FSM.fill_agility),
+                       Text(text=['button_back']))
 async def press_back(callback: CallbackQuery, state: FSMContext):
     await callback.message.edit_text(text=f'{lex["choose_type"]}', reply_markup=keyboard_type)
     await state.set_state(FSM.fill_group)
