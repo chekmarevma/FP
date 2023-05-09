@@ -1,6 +1,6 @@
-from aiogram import Router, F
+from aiogram import Router
 from aiogram.filters import Text, Command, StateFilter
-from aiogram.types import CallbackQuery, Message, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
 from FSM import FSM
 # from aiogram.fsm.state import default_state
@@ -36,7 +36,7 @@ async def choose_mode(callback: CallbackQuery, state: FSMContext):
 async def process_help_command(message: Message):
     await message.answer(text=lex['help'], parse_mode='MarkdownV2')
 
-# Хэндлер на команду /help
+# Хэндлер на команду /history
 @router.message(Command(commands='history'))
 async def process_help_command(message: Message):
     await message.answer(text=lex['history'], parse_mode='MarkdownV2')
@@ -78,7 +78,9 @@ async def speed_button_pressed(callback: CallbackQuery, state: FSMContext):
         await state.set_state(FSM.fill_swim100m)
 
 # Хэндлер на выбор упражнений на силу
-@router.callback_query(StateFilter(FSM.fill_strong), Text(text=['button_podt', 'button_vihod', 'button_podem', 'button_otzhim']))
+@router.callback_query(StateFilter(FSM.fill_strong), Text(text=['button_podt', 'button_vihod', 'button_podem', 'button_otzhim',
+                                                                'back', 'forward', 'button_shtanga_before70',
+                                                                'button_shtanga_after70']))
 async def strong_button_pressed(callback: CallbackQuery, state: FSMContext):
     if callback.data == 'button_podt':
         await callback.message.edit_text(text=f'{lex["input_podt"]}')
@@ -92,16 +94,40 @@ async def strong_button_pressed(callback: CallbackQuery, state: FSMContext):
     elif callback.data == 'button_otzhim':
         await callback.message.edit_text(text=f'{lex["input_otzhim"]}')
         await state.set_state(FSM.fill_otzhim)
+    elif callback.data == 'button_shtanga_before70':
+        await callback.message.edit_text(text=f'{lex["input_shtanga"]}')
+        await state.set_state(FSM.fill_shtanga_before70)
+    elif callback.data == 'button_shtanga_after70':
+        await callback.message.edit_text(text=f'{lex["input_shtanga"]}')
+        await state.set_state(FSM.fill_shtanga_after70)
+    elif callback.data == 'back':
+        try:
+            await callback.message.edit_text(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_strong)
+        except:
+            pass
+    elif callback.data == 'forward':
+        try:
+            await callback.message.edit_text(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_strong2)
+        except:
+            pass
 
 # Хэндлер на выбор упражнений на выносливость
-@router.callback_query(StateFilter(FSM.fill_endurance), Text(text=['button_1km', 'button_3km', 'button_back']))
+@router.callback_query(StateFilter(FSM.fill_endurance), Text(text=['button_1km_before35', 'button_1km_after35',
+                                                                   'button_3km_before35', 'button_3km_after35',
+                                                                   'button_back']))
 async def endurance_button_pressed(callback: CallbackQuery, state: FSMContext):
-    if callback.data == 'button_1km':
-        await callback.message.edit_text(text=lex['choose_age'], reply_markup=keyboard_age)
-        await state.set_state(FSM.fill_age_1km)
-    elif callback.data == 'button_3km':
-        await callback.message.edit_text(text=lex['choose_age'], reply_markup=keyboard_age)
-        await state.set_state(FSM.fill_age_3km)
+    if callback.data == 'button_1km_before35':
+        await callback.message.edit_text(text=f'{lex["input_1km"]}')
+        await state.set_state(FSM.fill_1km_before35)
+    elif callback.data == 'button_1km_after35':
+        await callback.message.edit_text(text=f'{lex["input_1km"]}')
+        await state.set_state(FSM.fill_1km_after35)
+    elif callback.data == 'button_3km_before35':
+        await callback.message.edit_text(text=f'{lex["input_3km"]}')
+        await state.set_state(FSM.fill_3km_before35)
+    elif callback.data == 'button_3km_after35':
+        await callback.message.edit_text(text=f'{lex["input_3km"]}')
+        await state.set_state(FSM.fill_3km_after35)
     elif callback.data == 'button_back':
         await callback.message.edit_text(text=lex['choose_type'], reply_markup=keyboard_type)
         await state.set_state(FSM.fill_group)
@@ -121,32 +147,6 @@ async def endurance_button_pressed(callback: CallbackQuery, state: FSMContext):
     elif callback.data == 'button_back':
         await callback.message.edit_text(text=lex['choose_type'], reply_markup=keyboard_type)
         await state.set_state(FSM.fill_group)
-
-# Хэндлер на выбор возраста на 1 км
-@router.callback_query(StateFilter(FSM.fill_age_1km), Text(text=['button_before35', 'button_after35', 'button_back']))
-async def age_button_pressed_1km(callback: CallbackQuery, state: FSMContext):
-    if callback.data == 'button_before35':
-        await callback.message.edit_text(text=f'{lex["input_1km"]}')
-        await state.set_state(FSM.fill_1km_before35)
-    elif callback.data == 'button_after35':
-        await callback.message.edit_text(text=f'{lex["input_1km"]}')
-        await state.set_state(FSM.fill_1km_after35)
-    elif callback.data == 'button_back':
-        await callback.message.edit_text(text=lex['choose_type'], reply_markup=keyboard_endurance)
-        await state.set_state(FSM.fill_endurance)
-
-# Хэндлер на выбор возраста на 3 км
-@router.callback_query(StateFilter(FSM.fill_age_3km), Text(text=['button_before35', 'button_after35', 'button_back']))
-async def age_button_pressed_3km(callback: CallbackQuery, state: FSMContext):
-    if callback.data == 'button_before35':
-        await callback.message.edit_text(text=f'{lex["input_3km"]}')
-        await state.set_state(FSM.fill_3km_before35)
-    elif callback.data == 'button_after35':
-        await callback.message.edit_text(text=f'{lex["input_3km"]}')
-        await state.set_state(FSM.fill_3km_after35)
-    elif callback.data == 'button_back':
-        await callback.message.edit_text(text=lex['choose_type'], reply_markup=keyboard_endurance)
-        await state.set_state(FSM.fill_endurance)
 
 # Хэндлер на кнопку назад из режима выбора упражнений
 @router.callback_query(StateFilter(FSM.fill_speed, FSM.fill_strong, FSM.fill_endurance, FSM.fill_agility),

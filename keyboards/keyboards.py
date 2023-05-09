@@ -45,28 +45,38 @@ button_vihod: InlineKeyboardButton = InlineKeyboardButton(
     text='Подъем силой на перекладине', callback_data='button_vihod')
 button_podem: InlineKeyboardButton = InlineKeyboardButton(
     text='Подъем переворотом на перекладине', callback_data='button_podem')
-# button_giri: InlineKeyboardButton = InlineKeyboardButton(
-#     text='Гири', callback_data='button_giri')
-# button_shtanga: InlineKeyboardButton = InlineKeyboardButton(
-#     text='Штанга', callback_data='button_shtanga')
 button_otzhim: InlineKeyboardButton = InlineKeyboardButton(
     text='Сгибания и разгибания рук в упоре лежа', callback_data='button_otzhim')
+b_back: InlineKeyboardButton = InlineKeyboardButton(
+    text='<', callback_data='back')
+b_forward: InlineKeyboardButton = InlineKeyboardButton(
+    text='>', callback_data='forward')
 button_back: InlineKeyboardButton = InlineKeyboardButton(
     text='Назад', callback_data='button_back')
+button_shtanga_before70: InlineKeyboardButton = InlineKeyboardButton(
+    text='Жим штанги лежа - до 70 кг', callback_data='button_shtanga_before70')
+button_shtanga_after70: InlineKeyboardButton = InlineKeyboardButton(
+    text='Жим штанги лежа - свыше 70 кг', callback_data='button_shtanga_after70')
 keyboard_strong: InlineKeyboardMarkup = InlineKeyboardMarkup(
-    inline_keyboard=[[button_podt], [button_vihod], [button_podem], [button_otzhim], [button_back]])
+    inline_keyboard=[[button_podt], [button_vihod], [button_podem], [button_otzhim], [b_back, b_forward], [button_back]])
+keyboard_strong2: InlineKeyboardMarkup = InlineKeyboardMarkup(
+    inline_keyboard=[[button_shtanga_before70], [button_shtanga_after70], [b_back, b_forward], [button_back]])
 
 # Клавиатура для выбора упражнений на выносливость
-button_1km: InlineKeyboardButton = InlineKeyboardButton(
-    text='Бег 1 км', callback_data='button_1km')
-button_3km: InlineKeyboardButton = InlineKeyboardButton(
-    text='Бег 3 км', callback_data='button_3km')
+button_1km_before35: InlineKeyboardButton = InlineKeyboardButton(
+    text='Бег 1 км - до 35', callback_data='button_1km_before35')
+button_1km_after35: InlineKeyboardButton = InlineKeyboardButton(
+    text='Бег 1 км - после 35', callback_data='button_1km_after35')
+button_3km_before35: InlineKeyboardButton = InlineKeyboardButton(
+    text='Бег 3 км - до 35', callback_data='button_3km_before35')
+button_3km_after35: InlineKeyboardButton = InlineKeyboardButton(
+    text='Бег 3 км - после 35', callback_data='button_3km_after35')
 # button_500m_swim: InlineKeyboardButton = InlineKeyboardButton(
 #     text='Плавание 500 метров', callback_data='button_500m_swim')
 button_back: InlineKeyboardButton = InlineKeyboardButton(
     text='Назад', callback_data='button_back')
 keyboard_endurance: InlineKeyboardMarkup = InlineKeyboardMarkup(
-    inline_keyboard=[[button_1km], [button_3km], [button_back]]) # [button_500m_swim]
+    inline_keyboard=[[button_1km_before35, button_1km_after35], [button_3km_before35, button_3km_after35], [button_back]]) # [button_500m_swim]
 
 # Клавиатура для выбора упражнений на ловкость
 button_jump3: InlineKeyboardButton = InlineKeyboardButton(
@@ -92,12 +102,3 @@ button_5: InlineKeyboardButton = InlineKeyboardButton(
 keyboard_mark: InlineKeyboardMarkup = InlineKeyboardMarkup(
     inline_keyboard=[[button_2, button_3, button_4, button_5], [button_back]])
 
-# Клавиатура для выбора возрастной группы
-button_before35: InlineKeyboardButton = InlineKeyboardButton(
-    text='До 35 лет', callback_data='button_before35')
-button_after35: InlineKeyboardButton = InlineKeyboardButton(
-    text='После 35 лет', callback_data='button_after35')
-button_back: InlineKeyboardButton = InlineKeyboardButton(
-    text='Назад', callback_data='button_back')
-keyboard_age: InlineKeyboardMarkup = InlineKeyboardMarkup(
-    inline_keyboard=[[button_before35], [button_after35], [button_back]])
