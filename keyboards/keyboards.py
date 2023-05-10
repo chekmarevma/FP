@@ -71,12 +71,13 @@ button_3km_before35: InlineKeyboardButton = InlineKeyboardButton(
     text='Бег 3 км - до 35', callback_data='button_3km_before35')
 button_3km_after35: InlineKeyboardButton = InlineKeyboardButton(
     text='Бег 3 км - после 35', callback_data='button_3km_after35')
-# button_500m_swim: InlineKeyboardButton = InlineKeyboardButton(
-#     text='Плавание 500 метров', callback_data='button_500m_swim')
+button_swim500: InlineKeyboardButton = InlineKeyboardButton(
+    text='Плавание 500 метров', callback_data='button_500m_swim')
 button_back: InlineKeyboardButton = InlineKeyboardButton(
     text='Назад', callback_data='button_back')
 keyboard_endurance: InlineKeyboardMarkup = InlineKeyboardMarkup(
-    inline_keyboard=[[button_1km_before35, button_1km_after35], [button_3km_before35, button_3km_after35], [button_back]]) # [button_500m_swim]
+    inline_keyboard=[[button_1km_before35, button_1km_after35], [button_3km_before35, button_3km_after35], [button_swim500],
+                     [button_back]]) # [button_500m_swim]
 
 # Клавиатура для выбора упражнений на ловкость
 button_jump3: InlineKeyboardButton = InlineKeyboardButton(

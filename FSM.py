@@ -26,4 +26,4 @@ class FSM(StatesGroup):
     fill_jump3 = State()             # Тройной прыжок
     fill_brevno = State()            # Перемещение по бревну
     fill_mark = State()              # Оценка за упражнение
-    # fill_500m_swim = State()       # Плавание 500 м
+    fill_swim500 = State()           # Плавание 500 м

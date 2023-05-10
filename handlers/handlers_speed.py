@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.filters import StateFilter
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
-from keyboards.keyboards import keyboard_type
+from keyboards.keyboards import keyboard_speed
 from data.data_speed import *
 from FSM import FSM
 import re
@@ -19,8 +19,8 @@ async def rezult_100m(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["100_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_100m[float(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_speed)
+    await state.set_state(FSM.fill_speed)
 
 # Хэндлер на 60 метров
 @router.message(StateFilter(FSM.fill_60m), lambda x: re.fullmatch(r'\d{1,2}[.]\d', x.text))
@@ -31,8 +31,8 @@ async def rezult_60m(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["100_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_60m[float(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_speed)
+    await state.set_state(FSM.fill_speed)
 
 # Хэндлер на 10 по 10 метров
 @router.message(StateFilter(FSM.fill_10x10), lambda x: re.fullmatch(r'\d{2}[.]\d', x.text))
@@ -43,8 +43,8 @@ async def rezult_10x10(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["100_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_10x10[float(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_speed)
+    await state.set_state(FSM.fill_speed)
 
 # Хэндлер на плавание 100 метров
 @router.message(StateFilter(FSM.fill_swim100m),
@@ -56,6 +56,5 @@ async def rezult_swim100m(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["100_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_swim100m[float(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
-
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_speed)
+    await state.set_state(FSM.fill_speed)

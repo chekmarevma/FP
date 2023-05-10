@@ -114,7 +114,7 @@ async def strong_button_pressed(callback: CallbackQuery, state: FSMContext):
 # Хэндлер на выбор упражнений на выносливость
 @router.callback_query(StateFilter(FSM.fill_endurance), Text(text=['button_1km_before35', 'button_1km_after35',
                                                                    'button_3km_before35', 'button_3km_after35',
-                                                                   'button_back']))
+                                                                   'button_500m_swim', 'button_back']))
 async def endurance_button_pressed(callback: CallbackQuery, state: FSMContext):
     if callback.data == 'button_1km_before35':
         await callback.message.edit_text(text=f'{lex["input_1km"]}')
@@ -128,6 +128,9 @@ async def endurance_button_pressed(callback: CallbackQuery, state: FSMContext):
     elif callback.data == 'button_3km_after35':
         await callback.message.edit_text(text=f'{lex["input_3km"]}')
         await state.set_state(FSM.fill_3km_after35)
+    elif callback.data == 'button_500m_swim':
+        await callback.message.edit_text(text=f'{lex["input_swim500"]}')
+        await state.set_state(FSM.fill_swim500)
     elif callback.data == 'button_back':
         await callback.message.edit_text(text=lex['choose_type'], reply_markup=keyboard_type)
         await state.set_state(FSM.fill_group)

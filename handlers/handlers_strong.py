@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.filters import StateFilter
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
-from keyboards.keyboards import keyboard_type
+from keyboards.keyboards import keyboard_strong
 from data.data_strong import *
 from FSM import FSM
 from lexicon import lex
@@ -19,8 +19,8 @@ async def rezult_podt(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["0_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_podt[int(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_strong)
+    await state.set_state(FSM.fill_strong)
 
 # Хэндлер на выход силой
 @router.message(StateFilter(FSM.fill_vihod))
@@ -31,8 +31,8 @@ async def rezult_vihod(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["0_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_vihod[int(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_strong)
+    await state.set_state(FSM.fill_strong)
 
 # Хэндлер на подъем переворотом
 @router.message(StateFilter(FSM.fill_podem))
@@ -43,8 +43,8 @@ async def rezult_podem(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["0_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_podem[int(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_strong)
+    await state.set_state(FSM.fill_strong)
 
 # Хэндлер на отжимания
 @router.message(StateFilter(FSM.fill_otzhim))
@@ -55,8 +55,8 @@ async def rezult_otzhim(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["0_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_otzhim[int(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_strong)
+    await state.set_state(FSM.fill_strong)
 
 # Хэндлер на штангу до 70 кг
 @router.message(StateFilter(FSM.fill_shtanga_before70))
@@ -67,8 +67,8 @@ async def rezult_otzhim(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["0_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_shtanga_before70[int(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_strong)
+    await state.set_state(FSM.fill_strong)
 
 # Хэндлер на штангу после 70 кг
 @router.message(StateFilter(FSM.fill_shtanga_after70))
@@ -79,6 +79,6 @@ async def rezult_otzhim(message: Message, state: FSMContext):
         await message.answer(text=f'{lex["rez"]}\n{lex["0_balls"]}')
     else:
         await message.answer(text=f'{lex["rez"]}*{d_shtanga_after70[int(message.text)]}*', parse_mode='MarkdownV2')
-    await message.answer(text='Выберите вид упражнения', reply_markup=keyboard_type)
-    await state.set_state(FSM.fill_group)
+    await message.answer(text=f'{lex["choose_exersize"]}', reply_markup=keyboard_strong)
+    await state.set_state(FSM.fill_strong)
 
