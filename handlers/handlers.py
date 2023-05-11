@@ -1,4 +1,4 @@
-from aiogram import Router
+from aiogram import Router, Bot
 from aiogram.filters import Text, Command, StateFilter
 from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
@@ -36,11 +36,36 @@ async def choose_mode(callback: CallbackQuery, state: FSMContext):
 async def process_help_command(message: Message):
     await message.answer(text=lex['help'], parse_mode='MarkdownV2')
 
+# Хэндлер на команду /feedback
+@router.message(Command(commands='feedback'))
+async def process_feedback_command(message: Message, state: FSMContext):
+    await message.answer(text='Напиши что-нибудь')
+    await state.set_state(FSM.fill_feedback)
+
+# Отправка мне фидбэка
+@router.message(StateFilter(FSM.fill_feedback))
+async def reply_to_feedback(message: Message, bot: Bot):
+    await bot.send_message(chat_id=399623881, text=f'id: {message.from_user.id} username: {message.from_user.username}'
+                                                   f'\nСообщение:\n{message.text}')
+
 # Хэндлер на команду /history
 @router.message(Command(commands='history'))
-async def process_help_command(message: Message):
+async def process_history_command(message: Message):
     await message.answer(text=lex['history'], parse_mode='MarkdownV2')
 
+l = [2038771530, 935404970, 1156615519,
+     1777504796, 970583350, 1246509991, 430471768, 1381153406, 264777384, 987454867, 5240118237, 487290836, 528297986,
+     170320587, 883360247, 629007371, 1487612668, 795800518]
+
+# Хэндлер на команду /news
+@router.message(Command(commands='news'))
+async def process_help_command(message: Message, bot: Bot):
+    for i in l:
+        try:
+            await bot.send_message(chat_id=f'{i}', text=f'{lex["news"]}')
+            await bot.send_message(chat_id=399623881, text=f'Send message to {i}')
+        except:
+            pass
 # Хэндлер на кнопки выбора типа упражнения
 @router.callback_query(StateFilter(FSM.fill_group), Text(text=['speed_button', 'strong_button', 'endurance_button',
                                                                'agility_button', 'choose_mode']))
